@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h3>🇻🇳 VN Proxy</h3>
+  
+  <div class="status-box">
+    <p>IP: <span id="current-ip">---</span></p>
+    <p>Trạng thái: <span id="status-text">Chưa tìm kiếm</span></p>
+    <p id="info-row">Ping: <span id="ping">---</span> ms | <span id="timer">00:00:00</span></p>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <select id="protocol">
+        <option value="http">HTTP</option>
+        <option value="socks4">SOCKS4</option>
+      </select>
+      <button id="btn-search">Tìm kiếm proxy</button>
+    </div>
+
+    <select id="proxy-list">
+      <option value="">-- Chọn proxy từ danh sách --</option>
+    </select>
+
+    <div class="row">
+      <button id="btn-connect" disabled>Kết nối</button>
+      <button id="btn-stop" disabled>Tạm dừng</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

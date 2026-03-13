@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "VN Proxy",
+  "version": "1.0",
+  "permissions": ["proxy", "storage", "notifications"],
+  "host_permissions": ["https://api.proxyscrape.com/*", "https://api.ipify.org/*"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
