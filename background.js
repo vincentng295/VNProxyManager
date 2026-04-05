@@ -8,6 +8,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.action === "stop") {
     chrome.proxy.settings.clear({ scope: 'regular' }, () => sendResponse({ success: true }));
     return true;
+  } else if (request.action === "checkStatus") {
+    // Kiểm tra xem extension có thực sự đang kiểm soát proxy không
+    chrome.proxy.settings.get({ incognito: false }, (details) => {
+      const isControlling = details.levelOfControl === 'controlled_by_this_extension' || 
+                           details.levelOfControl === 'controllable_by_this_extension';
+      sendResponse({ isControlling: isControlling, details: details });
+    });
+    return true;
   }
 });
 

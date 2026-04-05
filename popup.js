@@ -9,11 +9,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('status-text').innerText = `Đã tìm thấy ${data.lastList.length} proxy`;
   }
 
-  if (data.isConnected) {
-    updateUIConnected(data.proxy, data.startTime);
-  } else {
-    updateUIDisconnected();
-  }
+  // KIỂM TRA THỰC TẾ
+  chrome.runtime.sendMessage({ action: "checkStatus" }, (status) => {
+    if (data.isConnected && status.isControlling) {
+      updateUIConnected(data.proxy, data.startTime);
+    } else {
+      // Nếu storage ghi là connected nhưng thực tế bị extension khác chiếm
+      if (data.isConnected && !status.isControlling) {
+        console.warn("Proxy đang bị chiếm quyền bởi ứng dụng khác!");
+        document.getElementById('status-text').innerText = "Cảnh báo: Proxy bị ứng dụng khác chặn!";
+      }
+      updateUIDisconnected();
+      chrome.storage.local.set({ isConnected: false });
+    }
+  });
 });
 
 // NÚT TÌM KIẾM
